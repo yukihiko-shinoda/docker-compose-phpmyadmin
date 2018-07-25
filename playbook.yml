@@ -1,0 +1,9 @@
+---
+- hosts: default
+  become: yes
+  tasks:
+    - name: docker compose
+      docker_service:
+        project_src: .
+      environment:
+        MYSQL_ROOT_PASSWORD: '{{ application_database_password|default(omit) }}'

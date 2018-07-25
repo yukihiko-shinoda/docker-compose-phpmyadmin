@@ -1,0 +1,26 @@
+---
+version: '3'
+services:
+  mysql:
+    image: mysql:5.6
+    container_name: mysql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - /opt/datastore:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    links:
+      - mysql
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - /sessions
+    environment:
+      - PMA_HOST=mysql
